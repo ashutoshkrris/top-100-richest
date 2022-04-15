@@ -16,7 +16,7 @@
       crossorigin="anonymous"
     />
 
-    <title>Top 100 Richest Persons Around The Earth</title>
+    <title>Top {{num}} Richest Persons Around The Earth</title>
     <style>
       .navbar-brand.abs {
         /* position: absolute; */
@@ -28,47 +28,78 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <h1 style="color: white" class="navbar-brand abs">
-        Top 100 Richest Persons Around The World
+      <h1 style="color: white; word-wrap: break-word;" class="navbar-brand abs">
+        Top {{num}} Richest Persons
       </h1>
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="text"
-          placeholder="Search Persons"
-          aria-label="Search"
-          onkeyup="search_name()"
-          id="searchbar"
-        />
-      </form>
     </nav>
 
-    <table class="table table-striped text-center" id="myTable">
-      <thead>
-        <tr>
-          <th scope="col">Rank</th>
-          <th scope="col">Name</th>
-          <th scope="col">$ Total Net Worth</th>
-          <th scope="col">Country</th>
-          <th scope="col">Industry</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for key,value in data.items() %}
-        <tr>
-          <th scope="row">{{value.rank}}</th>
-          <td class="persons">
-            <a href="https://www.bloomberg.com/billionaires/{{value.link}}"
-              >{{value.name}}</a
-            >
-          </td>
-          <td>{{value.worth}}</td>
-          <td>{{value.country}}</td>
-          <td>{{value.industry}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="row mt-4 m-2 mr-2">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form class="d-flex mb-4">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">🔍</span>
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Search Persons By Name"
+              aria-label="Search"
+              onkeyup="search_name()"
+              id="searchbar"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <table
+          class="table table-striped text-center"
+          id="myTable"
+          aria-labelledby="myTable"
+        >
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Name</th>
+              <th scope="col">$ Total Net Worth</th>
+              <th scope="col">Country</th>
+              <th scope="col">$ Last Change</th>
+              <th scope="col">$ YTD Change</th>
+              <th scope="col">Industry</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key,value in data.items() %}
+            <tr>
+              <th scope="row">{{value.rank}}</th>
+              <td class="persons">
+                <a href="https://www.bloomberg.com/billionaires/{{value.link}}"
+                  >{{value.name}}</a
+                >
+              </td>
+              <td>{{value.worth}}</td>
+              <td>{{value.country}}</td>
+              {% if '-' in value.last_changes %}
+              <td style="color: #eb0025">{{value.last_changes}}</td>
+              {% else %}
+              <td style="color: #008555">{{value.last_changes}}</td>
+              {% endif %} {% if '-' in value.ytds %}
+              <td style="color: #eb0025">{{value.ytds}}</td>
+              {% else %}
+              <td style="color: #008555">{{value.ytds}}</td>
+              {% endif %}
+              <td>{{value.industry}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
