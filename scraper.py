@@ -42,7 +42,3 @@ def data_scraper(num):
     industries = [industry.get_text().strip()
                   for industry in response_industry][1:num+1]
     return ranks, names, links[:num], worths, last_changes, ytds, countries, industries
-
-
-if __name__ == '__main__':
-    ranks, names, links, worths, last_changes, ytds, countries, industries = data_scraper()
