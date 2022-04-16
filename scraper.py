@@ -20,9 +20,7 @@ def data_scraper(num):
     response_name = soup.find_all('div', class_='table-cell t-name')
     names = [name.get_text().strip() for name in response_name][:num]
 
-    links = []
-    for div in soup.findAll('div', class_='table-cell t-name'):
-        links.append((div.find('a')['href']).replace("./", ""))
+    links = [(name.find('a')['href']).replace("./", "") for name in response_name]
 
     response_worth = soup.find_all('div', class_='table-cell active t-nw')
     worths = [worth.get_text().strip() for worth in response_worth][1:num+1]
